@@ -2,20 +2,23 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 class Estate(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=175)
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2,)
-    property_type = models.CharField(max_length=20, choices=[
+    price = models.DecimalField(max_digits=12, decimal_places=4,)
+    property_type = models.CharField(max_length=15, choices=[
         ('Apartment', 'Apartment'),
-        ('Home', 'Home'),
-        ('Cottage', 'Cottage'),
         ('Farm House', 'Farm House'),
+        ('Home', 'Home'), 
+        ('Commercial', 'Commercial'),
+        ('Villa', 'Villa'),
+        ('Cottage', 'Cottage'),
+        ('Other', 'Other'),
     ])
     listing_type = models.CharField(max_length=10, choices=[
-        ('Rent', 'Rent'),
         ('Sale', 'Sale'),
+        ('Rent', 'Rent'),
     ])
-    bedrooms = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    bedrooms = models.PositiveIntegerField(validators=[MinValueValidator(0)])
     property_id = models.AutoField(primary_key=True)
 
-#using the MinValueValidator to ensure that price and bedrooms are good values.
+#using the MinValueValidator to ensure that price and bedrooms ki value postive rahe.

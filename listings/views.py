@@ -1,11 +1,11 @@
 from rest_framework import generics
 from .models import Estate
-from .serializers import EstateSerializer
+from .serializers import ListingSerializer
 
 # for listing all the properties and creating a new property.
 class listcreate(generics.ListCreateAPIView):
     queryset = Estate.objects.all()
-    serializer_class = EstateSerializer
+    serializer_class = ListingSerializer
 
     def perform_create(self, serializer):
         # validator for checking price is positive.
@@ -16,18 +16,18 @@ class listcreate(generics.ListCreateAPIView):
 # for updating, retrieving and deleting a property.(postman se ho raha hain// how to do it from browser?)
 class updateretreivedestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Estate.objects.all()
-    serializer_class = EstateSerializer
+    serializer_class = ListingSerializer
 
 # for filtering by property type.
 class filterproperty(generics.ListAPIView):
-    serializer_class = EstateSerializer
+    serializer_class = ListingSerializer
 
     def get_queryset(self):
         property_type = self.request.query_params.get('property_type', '')
         return Estate.objects.filter(property_type=property_type)
 
 class filterbedroom(generics.ListAPIView):
-    serializer_class = EstateSerializer
+    serializer_class = ListingSerializer
 
     def get_queryset(self):
         bedrooms = self.request.query_params.get('bedrooms', 0)
@@ -35,7 +35,7 @@ class filterbedroom(generics.ListAPIView):
 
 # for cheap property filtering.
 class cheap(generics.ListAPIView):
-    serializer_class = EstateSerializer
+    serializer_class = ListingSerializer
 
     def get_queryset(self):
         n = self.request.query_params.get('n', 10)
