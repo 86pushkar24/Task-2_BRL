@@ -10,7 +10,7 @@ class listcreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # validator for checking price is positive.
         if serializer.validated_data['price'] < 0:
-            raise serializer.ValidationError("Price cannot be negative.")
+            raise serializer.ValidationError("Negative price is not allowed.")
         serializer.save()
 
 # for updating, retrieving and deleting a property.(postman se ho raha hain// how to do it from browser?)
